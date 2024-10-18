@@ -2,43 +2,42 @@ import FormInput from "./FormInput";
 import { getInitialData } from "../../utils/index.ts";
 import { useEffect, useState } from "react";
 import NoteCard from "../ui/NoteCard.js";
-
-interface NoteDetails {
-  id: number;
-  title: string;
-  body: string;
-  archived: boolean;
-  createdAt: string;
-}
+import { NoteRequest } from "../../models/index.ts";
 
 const MainContent = () => {
-  const [notes, setNotes] = useState<NoteDetails[] | []>([]);
+  const [notes, setNotes] = useState<NoteRequest[] | []>([]);
 
   useEffect(() => {
-    const init: NoteDetails[] = getInitialData();
+    const init: NoteRequest[] = getInitialData();
 
     setNotes(init);
   }, []);
+
+  const formSubmitHandler = (data: NoteRequest) => {
+    setNotes((prevState) => [...prevState, data]);
+  };
 
   return (
     <div className="flex flex-col gap-8 w-full pt-8 mb-8">
       <section id="form-notes" className="w-full">
         <h2 className="text-center">Create New Note</h2>
-        <FormInput />
+        <FormInput handleSubmit={formSubmitHandler} />
       </section>
       <section id="active-notes" className="w-full px-4">
         <h2>Active Notes</h2>
         <div className="w-full flex flex-wrap gap-4">
-          {notes.map((note) => (
-            <NoteCard
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              body={note.body}
-              createdAt={note.createdAt}
-              isArchive={note.archived}
-            />
-          ))}
+          {notes
+            .map((note) => (
+              <NoteCard
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                body={note.body}
+                createdAt={note.createdAt}
+                isArchive={note.archived}
+              />
+            ))
+            .reverse()}
         </div>
       </section>
     </div>

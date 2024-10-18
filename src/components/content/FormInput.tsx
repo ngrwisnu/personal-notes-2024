@@ -1,8 +1,13 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "../ui/Button";
 import FormControl from "../ui/FormControl";
+import { NoteRequest } from "../../models";
 
-const FormInput = () => {
+interface FormInputProps {
+  handleSubmit: (data: NoteRequest) => void;
+}
+
+const FormInput = ({ handleSubmit }: FormInputProps) => {
   const [titleVal, setTitleVal] = useState<string>("");
   const [bodyVal, setBodyVal] = useState<string>("");
 
@@ -20,9 +25,23 @@ const FormInput = () => {
     setBodyVal(e.target.value);
   };
 
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const request = new NoteRequest({
+      title: titleVal,
+      body: bodyVal,
+    });
+
+    handleSubmit(request);
+
+    setTitleVal("");
+    setBodyVal("");
+  };
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={submitHandler}
       className="bg-white rounded-lg basis-full max-w-[500px] mx-auto p-4 flex flex-col gap-4"
     >
       <FormControl
@@ -38,9 +57,7 @@ const FormInput = () => {
         onChange={bodyChangeHandler}
       />
       <div className="mt-4 flex justify-end">
-        <Button type="primary" onClick={() => console.log("clicked")}>
-          Add Note
-        </Button>
+        <Button type="primary">Add Note</Button>
       </div>
     </form>
   );
