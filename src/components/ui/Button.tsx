@@ -27,7 +27,7 @@ const Button = ({
 
   return (
     <button
-      className={`w-fit px-5 py-2 text-base font-medium rounded-md flex gap-2 items-center ${
+      className={`w-full flex justify-center items-center md:w-fit px-5 py-2 text-base font-medium rounded-md gap-2 ${
         type === "primary" && "bg-indigo-600 text-white"
       } ${type === "secondary" && "bg-neutral-500 text-white"} ${
         type === "danger" &&

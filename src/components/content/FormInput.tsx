@@ -43,7 +43,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
   return (
     <form
       onSubmit={submitHandler}
-      className="bg-white rounded-lg basis-full max-w-[500px] mx-auto p-4 flex flex-col gap-4"
+      className="bg-white rounded-lg basis-full w-full max-w-[500px] mx-auto p-4 flex flex-col gap-4"
     >
       <FormControl
         id="title"

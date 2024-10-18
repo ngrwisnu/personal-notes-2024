@@ -16,7 +16,7 @@ const MainContent = ({
   handleArchiveStatus,
 }: MainContentProps) => {
   return (
-    <div className="flex flex-col gap-8 w-full pt-8 mb-8">
+    <div className="flex flex-col gap-8 w-full pt-8 mb-8 mx-4 lg:mx-0">
       <section id="form-notes" className="w-full">
         <h2 className="text-center">Create New Note</h2>
         <FormInput handleSubmit={handleSubmit} />

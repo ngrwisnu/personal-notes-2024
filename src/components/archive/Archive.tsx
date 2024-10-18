@@ -5,16 +5,22 @@ interface ArchivedNotesProps {
   notes: NoteRequest[];
   handleDelete: (id: number) => void;
   handleArchiveStatus: (id: number) => void;
+  archiveState: boolean;
 }
 
 const Archive = ({
   notes,
   handleDelete,
   handleArchiveStatus,
+  archiveState,
 }: ArchivedNotesProps) => {
   return (
-    <aside>
-      <div className="bg-white w-4/5 md:w-[300px] pl-4 pt-8 h-full">
+    <aside
+      className={`absolute z-10 bottom-0 top-0 w-full max-w-[360px] ${
+        !archiveState && "-left-full lg:absolute"
+      } ${archiveState && "left-0 lg:relative"}`}
+    >
+      <div className="bg-white w-full px-4 pt-14 h-full">
         <h2>Archive Notes</h2>
         {!notes.some((note) => note.archived) && (
           <div className="w-full">

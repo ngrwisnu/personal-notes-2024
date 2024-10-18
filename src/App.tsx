@@ -5,12 +5,22 @@ import Header from "./components/header/Header";
 import { useEffect, useState } from "react";
 import { NoteRequest } from "./models";
 import { getInitialData } from "./utils";
+import Button from "./components/ui/Button";
 
 function App() {
   const [notes, setNotes] = useState<NoteRequest[] | []>([]);
+  const [isArchiveOpen, setIsArchiveOpen] = useState<boolean>(true);
 
   useEffect(() => {
     const init: NoteRequest[] = getInitialData();
+
+    const screenSize = window.innerWidth;
+
+    if (screenSize < 768) {
+      setIsArchiveOpen(false);
+    } else {
+      setIsArchiveOpen(true);
+    }
 
     setNotes(init);
   }, []);
@@ -40,6 +50,10 @@ function App() {
     setNotes(updatedNotes);
   };
 
+  const archiveStateHandler = () => {
+    setIsArchiveOpen(!isArchiveOpen);
+  };
+
   return (
     <>
       <Header />
@@ -47,13 +61,16 @@ function App() {
         className="w-screen flex relative"
         style={{ minHeight: "calc(100vh - 80px)" }}
       >
-        <div className="absolute left-4 top-2">
-          <Menu size={20} />
+        <div className="absolute left-4 top-2 z-50">
+          <Button onClick={archiveStateHandler} iconOnly>
+            <Menu size={20} />
+          </Button>
         </div>
         <Archive
           notes={notes}
           handleDelete={deleteNoteHandler}
           handleArchiveStatus={archiveStatusHandler}
+          archiveState={isArchiveOpen}
         />
         <MainContent
           notes={notes}
