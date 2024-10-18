@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "../ui/Button";
 import FormControl from "../ui/FormControl";
 import { NoteRequest } from "../../models";
+import { Plus } from "lucide-react";
 
 interface FormInputProps {
   handleSubmit: (data: NoteRequest) => void;
@@ -49,6 +50,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
         label="Title"
         value={titleVal}
         onChange={titleChangeHandler}
+        required
       />
       <FormControl
         id="body"
@@ -57,7 +59,9 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
         onChange={bodyChangeHandler}
       />
       <div className="mt-4 flex justify-end">
-        <Button type="primary">Add Note</Button>
+        <Button type="primary">
+          <Plus size={20} /> Add Note
+        </Button>
       </div>
     </form>
   );

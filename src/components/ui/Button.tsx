@@ -16,7 +16,10 @@ const Button = ({
 }: ButtonProps) => {
   if (iconOnly) {
     return (
-      <button className="w-[40px] h-[40px] rounded-full flex justify-center items-center">
+      <button
+        className="min-w-[40px] h-[40px] bg-indigo-50 rounded-full flex justify-center items-center"
+        onClick={onClick}
+      >
         {children}
       </button>
     );

@@ -9,6 +9,7 @@ interface NoteCardProps {
   createdAt: string;
   isArchive: boolean;
   handleDelete: (id: number) => void;
+  handleArchiveStatus: (id: number) => void;
 }
 
 const NoteCard = ({
@@ -18,6 +19,7 @@ const NoteCard = ({
   createdAt,
   isArchive,
   handleDelete,
+  handleArchiveStatus,
 }: NoteCardProps) => {
   return (
     <article className="grow max-w-60 flex flex-col justify-between gap-4 border bg-white rounded-xl p-2 text-pretty">
@@ -29,8 +31,12 @@ const NoteCard = ({
               {showFormattedDate(createdAt)}
             </div>
           </div>
-          <Button iconOnly>
-            <Archive size={20} />
+          <Button onClick={() => handleArchiveStatus(id)} iconOnly>
+            <Archive
+              fill={isArchive ? "#1e1b4b" : "transparent"}
+              color={isArchive ? "white" : "#1e1b4b"}
+              size={20}
+            />
           </Button>
         </div>
         <p className="mt-2 h-auto">{body}</p>

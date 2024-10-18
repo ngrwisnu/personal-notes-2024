@@ -5,6 +5,7 @@ interface FormControlProps {
   label: string;
   type?: string;
   value: string;
+  required?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
@@ -14,6 +15,7 @@ const FormControl = ({
   label,
   onChange,
   type = "text",
+  required = false,
 }: FormControlProps) => {
   const charactersLimit = 50;
 
@@ -52,6 +54,7 @@ const FormControl = ({
           type={type}
           value={value}
           onChange={onChange}
+          required={required}
         />
       )}
     </div>

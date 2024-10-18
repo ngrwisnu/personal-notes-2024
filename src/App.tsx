@@ -7,7 +7,10 @@ function App() {
   return (
     <>
       <Header />
-      <main className="w-screen flex relative">
+      <main
+        className="w-screen flex relative"
+        style={{ minHeight: "calc(100vh - 80px)" }}
+      >
         <div className="absolute left-4 top-2">
           <Menu size={20} />
         </div>

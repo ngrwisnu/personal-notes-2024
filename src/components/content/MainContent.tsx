@@ -23,6 +23,21 @@ const MainContent = () => {
     setNotes(updatedNotes);
   };
 
+  const archiveStatusHandler = (id: number) => {
+    const updatedNotes = notes.map((note) => {
+      if (note.id === id) {
+        return {
+          ...note,
+          archived: !note.archived,
+        };
+      }
+
+      return note;
+    });
+
+    setNotes(updatedNotes);
+  };
+
   return (
     <div className="flex flex-col gap-8 w-full pt-8 mb-8">
       <section id="form-notes" className="w-full">
@@ -31,6 +46,11 @@ const MainContent = () => {
       </section>
       <section id="active-notes" className="w-full px-4">
         <h2>Active Notes</h2>
+        {!notes.length && (
+          <div className="w-full">
+            <p className="w-full text-center">Let's write your first note</p>
+          </div>
+        )}
         <div className="w-full flex flex-wrap gap-4">
           {notes
             .map((note) => (
@@ -42,6 +62,7 @@ const MainContent = () => {
                 createdAt={note.createdAt}
                 isArchive={note.archived}
                 handleDelete={deleteNoteHandler}
+                handleArchiveStatus={archiveStatusHandler}
               />
             ))
             .reverse()}
