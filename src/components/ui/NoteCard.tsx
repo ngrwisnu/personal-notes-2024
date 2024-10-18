@@ -8,9 +8,17 @@ interface NoteCardProps {
   body: string;
   createdAt: string;
   isArchive: boolean;
+  handleDelete: (id: number) => void;
 }
 
-const NoteCard = ({ id, title, body, createdAt, isArchive }: NoteCardProps) => {
+const NoteCard = ({
+  id,
+  title,
+  body,
+  createdAt,
+  isArchive,
+  handleDelete,
+}: NoteCardProps) => {
   return (
     <article className="grow max-w-60 flex flex-col justify-between gap-4 border bg-white rounded-xl p-2 text-pretty">
       <div>
@@ -28,7 +36,7 @@ const NoteCard = ({ id, title, body, createdAt, isArchive }: NoteCardProps) => {
         <p className="mt-2 h-auto">{body}</p>
       </div>
       <div className="w-full flex justify-end">
-        <Button type="danger">
+        <Button type="danger" onClick={() => handleDelete(id)}>
           <Trash size={20} /> Remove
         </Button>
       </div>

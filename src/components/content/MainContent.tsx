@@ -17,6 +17,12 @@ const MainContent = () => {
     setNotes((prevState) => [...prevState, data]);
   };
 
+  const deleteNoteHandler = (id: number) => {
+    const updatedNotes = notes.filter((note) => note.id !== id);
+
+    setNotes(updatedNotes);
+  };
+
   return (
     <div className="flex flex-col gap-8 w-full pt-8 mb-8">
       <section id="form-notes" className="w-full">
@@ -35,6 +41,7 @@ const MainContent = () => {
                 body={note.body}
                 createdAt={note.createdAt}
                 isArchive={note.archived}
+                handleDelete={deleteNoteHandler}
               />
             ))
             .reverse()}
