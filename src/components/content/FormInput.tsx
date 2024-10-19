@@ -13,7 +13,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
   const [bodyVal, setBodyVal] = useState<string>("");
 
   const titleChangeHandler = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     if (e.target.value.length <= 50) {
       setTitleVal(e.target.value);
@@ -21,7 +21,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
   };
 
   const bodyChangeHandler = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setBodyVal(e.target.value);
   };
@@ -43,7 +43,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
   return (
     <form
       onSubmit={submitHandler}
-      className="bg-white rounded-lg basis-full w-full max-w-[500px] mx-auto p-4 flex flex-col gap-4"
+      className="mx-auto flex max-w-[400px] flex-col gap-4 rounded-lg bg-white p-4"
     >
       <FormControl
         id="title"
@@ -58,7 +58,7 @@ const FormInput = ({ handleSubmit }: FormInputProps) => {
         value={bodyVal}
         onChange={bodyChangeHandler}
       />
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex w-full justify-end">
         <Button type="primary">
           <Plus size={20} /> Add Note
         </Button>

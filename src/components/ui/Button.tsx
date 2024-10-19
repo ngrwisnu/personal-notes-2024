@@ -17,7 +17,7 @@ const Button = ({
   if (iconOnly) {
     return (
       <button
-        className="min-w-[40px] h-[40px] bg-indigo-50 rounded-full flex justify-center items-center"
+        className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-indigo-50"
         onClick={onClick}
       >
         {children}
@@ -27,7 +27,7 @@ const Button = ({
 
   return (
     <button
-      className={`w-full flex justify-center items-center md:w-fit px-5 py-2 text-base font-medium rounded-md gap-2 ${
+      className={`flex w-full items-center justify-center gap-2 rounded-md px-5 py-2 text-base font-medium md:w-fit ${
         type === "primary" && "bg-indigo-600 text-white"
       } ${type === "secondary" && "bg-neutral-500 text-white"} ${
         type === "danger" &&

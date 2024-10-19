@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <header className="w-screen h-20 py-4 bg-white">
-      <h2 className="text-3xl w-full h-full text-center font-semibold">
+    <header id="header" className="relative z-[999] h-20 w-full bg-white py-4">
+      <h2 className="h-full w-full text-center text-3xl font-semibold">
         Personal Notes
       </h2>
     </header>

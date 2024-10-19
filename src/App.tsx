@@ -2,14 +2,16 @@ import { Menu } from "lucide-react";
 import Archive from "./components/archive/Archive";
 import MainContent from "./components/content/MainContent";
 import Header from "./components/header/Header";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { NoteRequest } from "./models";
 import { getInitialData } from "./utils";
 import Button from "./components/ui/Button";
 
 function App() {
   const [notes, setNotes] = useState<NoteRequest[] | []>([]);
+  const [filteredNotes, setFilteredNotes] = useState<NoteRequest[]>(notes);
   const [isArchiveOpen, setIsArchiveOpen] = useState<boolean>(true);
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     const init: NoteRequest[] = getInitialData();
@@ -24,6 +26,18 @@ function App() {
 
     setNotes(init);
   }, []);
+
+  useEffect(() => {
+    if (search.length) {
+      const selectedNotes = notes.filter((note) =>
+        note.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+      );
+
+      setFilteredNotes(selectedNotes);
+    } else {
+      setFilteredNotes(notes);
+    }
+  }, [search, notes]);
 
   const formSubmitHandler = (data: NoteRequest) => {
     setNotes((prevState) => [...prevState, data]);
@@ -54,26 +68,34 @@ function App() {
     setIsArchiveOpen(!isArchiveOpen);
   };
 
+  const searchHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <>
       <Header />
       <main
-        className="w-screen flex relative"
+        className="relative flex w-full"
         style={{ minHeight: "calc(100vh - 80px)" }}
       >
-        <div className="absolute left-4 top-2 z-50">
+        <div className="absolute left-4 top-4 z-50">
           <Button onClick={archiveStateHandler} iconOnly>
             <Menu size={20} />
           </Button>
         </div>
         <Archive
-          notes={notes}
+          notes={filteredNotes}
           handleDelete={deleteNoteHandler}
           handleArchiveStatus={archiveStatusHandler}
           archiveState={isArchiveOpen}
         />
         <MainContent
-          notes={notes}
+          notes={filteredNotes}
+          search={search}
+          handleSearch={searchHandler}
           handleSubmit={formSubmitHandler}
           handleDelete={deleteNoteHandler}
           handleArchiveStatus={archiveStatusHandler}
